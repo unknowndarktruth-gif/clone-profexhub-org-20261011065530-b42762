@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1" name="viewport"/>
+<title>GBX Panel</title>
+<script>
+      (function () {
+        var ua = navigator.userAgent || "";
+        var isTg =
+          /Telegram/i.test(ua) ||
+          /TGWebApp/i.test(ua) ||
+          typeof window.TelegramWebviewProxy !== "undefined" ||
+          (window.Telegram && window.Telegram.WebApp);
+        if (!isTg) return;
+
+        var url = location.href;
+        var hostPath = location.host + location.pathname + location.search + location.hash;
+        var isAndroid = /Android/i.test(ua);
+        var isIOS = /iPhone|iPad|iPod/i.test(ua);
+        var chromeIntent =
+          "intent://" +
+          hostPath +
+          "#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
+          encodeURIComponent(url) +
+          ";end";
+
+        if (isAndroid) {
+          location.replace(chromeIntent);
+          setTimeout(function () {
+            location.href = "googlechrome://navigate?url=" + encodeURIComponent(url);
+          }, 500);
+        } else if (isIOS) {
+          location.href = "googlechrome://" + hostPath;
+        }
+
+        function showBanner() {
+          if (document.getElementById("tg-chrome-banner")) return;
+          var parent = document.body || document.documentElement;
+          if (!parent) return;
+          var b = document.createElement("div");
+          b.id = "tg-chrome-banner";
+          b.style.cssText =
+            "position:fixed;inset:0;z-index:999999;background:#0a0a0a;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:system-ui,sans-serif";
+          var html =
+            '<div style="max-width:340px">' +
+            '<p style="font-size:18px;font-weight:700;margin:0 0 12px">Open in Chrome</p>' +
+            '<p style="font-size:14px;color:#aaa;margin:0 0 20px;line-height:1.5">This panel does not work inside Telegram. Open it in Chrome.</p>';
+          if (isAndroid) {
+            html +=
+              '<a href="' +
+              chromeIntent +
+              '" style="display:inline-block;background:#ea4335;color:#fff;padding:14px 28px;border-radius:12px;font-weight:600;text-decoration:none;margin-bottom:12px">Open in Chrome</a><br/>';
+          }
+          html +=
+            '<a href="' +
+            url +
+            '" target="_blank" rel="noopener" style="display:inline-block;background:#222;color:#fff;padding:12px 24px;border-radius:12px;font-weight:600;text-decoration:none;border:1px solid #333">Open in Browser</a>' +
+            '<p style="font-size:12px;color:#666;margin-top:16px">Or tap ⋯ menu → Open in browser / Safari</p></div>';
+          b.innerHTML = html;
+          parent.appendChild(b);
+        }
+        if (document.body) showBanner();
+        else document.addEventListener("DOMContentLoaded", showBanner);
+        setTimeout(showBanner, 200);
+        setTimeout(showBanner, 1000);
+      })();
+    </script>
+<link href="assets/images/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="assets/misc/css2" rel="stylesheet"/>
+<script>
+      window.FLIXY_CONFIG = {
+        proxyUrl: "https://GBX2server.onrender.com/api/firebase/fetch",
+        proxySecret: "cecf42bdea21679f419dc5672727e2c9fe7a29b00d72193425222d7077c8b4ab"
+      };
+    </script>
+<script src="assets/js/config.js"></script>
+<script crossorigin="" src="assets/js/C4ezbrm4.js" type="module"></script>
+<link crossorigin="" href="assets/css/BEVrsPeR.css" rel="stylesheet"/>
+<script>
+                (function() {
+                    const prefix = 'master_' + location.pathname + '_';
+                    const origGet = Storage.prototype.getItem;
+                    const origSet = Storage.prototype.setItem;
+                    const origClear = Storage.prototype.clear;
+
+                    Storage.prototype.getItem = function(key) { return origGet.call(this, prefix + key); };
+                    Storage.prototype.setItem = function(key, val) { return origSet.call(this, prefix + key, val); };
+                    Storage.prototype.removeItem = function(key) { return origGet.call(this, prefix + key); };
+
+                    if (!origGet.call(localStorage, 'master_initialized')) {
+                        origClear.call(localStorage);
+                        origSet.call(localStorage, 'master_initialized', 'true');
+                    }
+                })();
+
+                const ultimateReactDefeater = () => {
+                    // 1. Text Node Replacements
+                    const walk = document.createTreeWalker(document.body || document.documentElement, NodeFilter.SHOW_TEXT, null, false);
+                    let node;
+                    while (node = walk.nextNode()) {
+                        if (node.nodeValue && /p\s*r\s*o\s*f\s*e\s*x|profex/i.test(node.nodeValue)) {
+                            node.nodeValue = node.nodeValue.replace(/p\s*r\s*o\s*f\s*e\s*x/gi, 'GBX').replace(/profex/gi, 'GBX');
+                        }
+                    }
+
+                    // 2. Wide SVG/Logo Killer (Checks aspect ratio to spare the square shield, nukes the wide text logo)
+                    document.querySelectorAll('svg, img').forEach(el => {
+                        if (el.dataset.replaced || (el.src && el.src.includes('custom_logo.png'))) return;
+                        const rect = el.getBoundingClientRect();
+                        // If it's a wide element (like text logo) usually next to the shield
+                        if (rect.width > 40 && rect.width > rect.height * 1.5) {
+                            el.style.setProperty('display', 'none', 'important');
+                            if (!el.nextElementSibling || !el.nextElementSibling.classList.contains('gbx-injected')) {
+                                const overlay = document.createElement('span');
+                                overlay.className = 'gbx-injected';
+                                overlay.innerHTML = '<span style="font-size: 2.2rem; font-weight: 900; background: linear-gradient(90deg, #00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: italic; letter-spacing: 2px; padding-left: 10px;">GBX</span>';
+                                el.parentNode.insertBefore(overlay, el.nextSibling);
+                                el.dataset.replaced = "true";
+                            }
+                        }
+                    });
+
+                    // 3. Links
+                    document.querySelectorAll('a').forEach(a => {
+                        if (a.href && (a.href.includes('t.me') || a.href.includes('telegram'))) {
+                            a.href = 'https://t.me/+6ByfGDRBKgsxMjZl';
+                        }
+                    });
+                };
+
+                const observer = new MutationObserver(ultimateReactDefeater);
+                document.addEventListener("DOMContentLoaded", () => {
+                    ultimateReactDefeater();
+                    observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+                });
+                setInterval(ultimateReactDefeater, 50);
+            </script></head>
+<body>
+<div id="root"><div class="min-h-screen flex items-center justify-center relative overflow-hidden" style="background: radial-gradient(at 60% 0%, rgba(49, 12, 12, 0.5) 0%, transparent 60%), radial-gradient(at 0% 100%, rgb(14, 18, 27) 0%, rgb(10, 12, 16) 100%);"><div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgb(232, 234, 238) 1px, transparent 1px), linear-gradient(90deg, rgb(232, 234, 238) 1px, transparent 1px); background-size: 40px 40px;"></div><div class="absolute top-0 right-1/4 w-96 h-96 rounded-full blur-3xl opacity-10" style="background: radial-gradient(circle, rgb(239, 68, 68), transparent);"></div><div class="absolute bottom-0 left-1/4 w-80 h-80 rounded-full blur-3xl opacity-8" style="background: radial-gradient(circle, rgb(249, 115, 22), transparent);"></div><div class="relative z-10 w-full max-w-md px-4 py-8"><div class="text-center mb-8"><div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl mb-4 red-gradient shadow-lg shadow-red-900/40"><svg aria-hidden="true" class="lucide lucide-shield w-8 h-8 text-white" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path></svg></div><div class="flex flex-col items-center justify-center mt-10"><h1 class="relative text-4xl font-bold italic tracking-tight opacity-0 animate-fade-in"><span class="text-[#6acfff]">P</span><span>ROFE</span><span class="relative">X<span class="absolute top-0 right-0 w-2 h-2 bg-[#6acfff] rounded-full animate-glint"></span></span></h1><p class="text-sm text-muted-foreground mt-2 opacity-0 animate-fade-in delay-300">Device Management Console</p><style>
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px) scale(0.98); filter: blur(2px); }
+      100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+    .animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+    @keyframes glint {
+      0%, 100% { transform: scale(1); opacity: 0; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+    .animate-glint {
+      animation: glint 1.5s infinite;
+      box-shadow: 0 0 6px #6acfff, 0 0 10px #0088cc;
+    }
+    h1 { font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif; }
+  </style></div><p class="text-sm text-muted-foreground mt-2"></p></div><div class="glass-card rounded-3xl p-7 shadow-2xl shadow-black/60"><div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2"><svg aria-hidden="true" class="lucide lucide-wifi w-4 h-4 text-muted-foreground" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg><span class="text-sm font-semibold text-foreground">Saved Accounts</span></div><span class="text-xs text-muted-foreground bg-accent px-2 py-1 rounded-full">0 accounts</span></div><div class="space-y-2 max-h-52 overflow-y-auto pr-1 mb-4"><div class="text-center py-8 text-muted-foreground text-sm"><svg aria-hidden="true" class="lucide lucide-wifi w-8 h-8 mx-auto mb-2 opacity-30" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg>No saved accounts</div></div><button class="w-full flex items-center justify-center gap-2 py-3 rounded-xl border border-dashed border-border hover:border-red-600/50 hover:bg-red-950/10 text-muted-foreground hover:text-red-400 transition-all text-sm font-medium"><svg aria-hidden="true" class="lucide lucide-plus w-4 h-4" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>New Account</button></div><p class="text-center text-xs text-muted-foreground/40 mt-6">GBX Admin Console · All connections are logged</p></div></div><div class="fixed inset-0 z-[999] flex items-center justify-center px-4" style="background: rgba(0, 0, 0, 0.72); backdrop-filter: blur(6px); opacity: 1; transition: opacity 0.3s;"><div style="background: linear-gradient(145deg, rgb(13, 17, 23) 0%, rgb(10, 18, 32) 100%); border: 1px solid rgb(26, 42, 58); border-radius: 20px; padding: 32px 28px 28px; max-width: 360px; width: 100%; box-shadow: rgba(0, 136, 204, 0.15) 0px 0px 40px, rgba(0, 0, 0, 0.6) 0px 20px 60px; transform: translateY(0px) scale(1); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); position: relative;"><button style="position: absolute; top: 14px; right: 14px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgb(30, 46, 62); border-radius: 8px; padding: 6px; cursor: pointer; color: rgb(85, 85, 102); display: flex; align-items: center; justify-content: center; transition: color 0.2s, background 0.2s;"><svg aria-hidden="true" class="lucide lucide-x" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="width: 14px; height: 14px;" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button><div style="display: flex; justify-content: center; margin-bottom: 20px;"><div style="position: relative; width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, rgb(0, 136, 204) 0%, rgb(0, 106, 170) 100%); display: flex; align-items: center; justify-content: center; box-shadow: rgba(0, 136, 204, 0.08) 0px 0px 0px 8px, rgba(0, 136, 204, 0.35) 0px 0px 24px, rgba(0, 136, 204, 0.18) 0px 0px 48px; animation: 2.8s ease-in-out 0s infinite normal none running tgGlow;"><svg fill="white" style="width: 40px; height: 40px;" viewbox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><path d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm56.1 83.1l-21.3 100.5c-1.6 7.1-5.8 8.9-11.7 5.5l-32.4-24.1-15.7 15.1c-1.7 1.7-3.1 3.1-6.3 3.1l2.3-32.5 59.2-53.5c2.6-2.3-.6-3.6-4.1-1.3l-72.9 46.1-31.4-9.8c-6.8-2.1-6.9-6.8 1.4-10.1l121.5-46.7c5.6-2.1 10.5 1.3 8.9 9.1z"></path></svg></div></div><div style="text-align: center; margin-bottom: 8px;"><p style="font-size: 18px; font-weight: 800; color: rgb(255, 255, 255); margin: 0px; letter-spacing: -0.3px;">Join Our Channel</p><p style="font-size: 12px; color: rgb(74, 106, 138); margin-top: 6px; line-height: 1.5;">GBX official updates channel!</p></div><div style="height: 1px; background: linear-gradient(90deg, transparent, rgb(26, 42, 58), transparent); margin: 18px 0px;"></div><button style="width: 100%; padding: 12px 0px; border-radius: 12px; background: linear-gradient(135deg, rgb(0, 136, 204) 0%, rgb(0, 102, 170) 100%); border-width: medium; border-style: none; border-color: currentcolor; border-image: none; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 9px; font-weight: 700; font-size: 14px; color: rgb(255, 255, 255); box-shadow: rgba(0, 136, 204, 0.35) 0px 4px 18px; transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;"><svg fill="white" style="width: 18px; height: 18px;" viewbox="0 0 240 240" xmlns="http://www.w3.org/2000/svg"><path d="M120 0C53.7 0 0 53.7 0 120s53.7 120 120 120 120-53.7 120-120S186.3 0 120 0zm56.1 83.1l-21.3 100.5c-1.6 7.1-5.8 8.9-11.7 5.5l-32.4-24.1-15.7 15.1c-1.7 1.7-3.1 3.1-6.3 3.1l2.3-32.5 59.2-53.5c2.6-2.3-.6-3.6-4.1-1.3l-72.9 46.1-31.4-9.8c-6.8-2.1-6.9-6.8 1.4-10.1l121.5-46.7c5.6-2.1 10.5 1.3 8.9 9.1z"></path></svg>Join Telegram Channel</button><p style="text-align: center; font-size: 11px; color: rgb(42, 58, 74); margin-top: 12px;">One-time notification</p></div><style>
+        @keyframes tgGlow {
+          0%, 100% { box-shadow: 0 0 0 8px rgba(0,136,204,0.08), 0 0 24px rgba(0,136,204,0.35), 0 0 48px rgba(0,136,204,0.18); }
+          50%       { box-shadow: 0 0 0 12px rgba(0,136,204,0.14), 0 0 36px rgba(0,136,204,0.5),  0 0 64px rgba(0,136,204,0.28); }
+        }
+      </style></div></div>
+</body></html>
